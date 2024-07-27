@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block navbar_addition %}
+{% endblock %}
+
+{% block content %}
+<div class="col-1">
+    <iframe src="{{video.url_video}}" frameborder="0"></iframe>
+    <h1>{{video.name}}</h1>
+    <p>{{video.comment_video}}</p>
+    <p>{{video.publish_date}}</p>
+</div>
+<a id="deleteButton" type="submit" name="delete" class="btn btn-danger" href="{% url 'SL:delete' video.id %}">Delete</a>
+
+{% endblock %}

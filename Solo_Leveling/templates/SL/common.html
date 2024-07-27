@@ -1,12 +1,36 @@
 {% extends 'base.html' %}
+
+
+{% block navbar_addition %}
+<li class="nav-item">
+    <a type="button" class="btn btn-outline-danger" href="{% url 'SL:create' %}">Create</a>
+</li>    
+{% endblock %}
+
+
 {% block content %}
+{% if messages %}
+        <div class="alert alert-info" role="alert">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+{% endif %}
 <div class="container text-center">
-    <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
-{% for i in urls %}
-            <div class="">
-                <iframe class = "card-img-top" width="560" height="315" src="{{ i }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+    <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3 ">
+        {% for i in urls %}
+        <a class="text-decoration-none" href="{% url 'SL:about' i.id %}">
+        <div class="card ms-1">
+            <iframe src="{{ i.url_video }}" class="card-img-top"></iframe>
+            <div class="card-body">
+              <h5 class="card-title">{{ i.name }}</h5>
+              <p class="card-text" maxlength="50">{{ i.comment_video }}</p>
             </div>
-{% endfor %}
+          </div>
+        </a>
+        {% endfor %}
+    </div>
         <a href="{% url 'SL:index' %}">index</a>
     </div>
 </div>  
