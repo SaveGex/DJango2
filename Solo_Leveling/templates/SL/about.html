@@ -11,6 +11,6 @@
     <p>{{video.comment_video}}</p>
     <p>{{video.publish_date}}</p>
 </div>
-<a id="deleteButton" type="submit" name="delete" class="btn btn-danger" href="{% url 'SL:delete' video.id %}">Delete</a>
-
+<a class="btn btn-danger" href="{% url 'SL:delete' video.id %}">Delete</a>
+<a class="btn btn-info" href="{% url 'SL:change' video.id %}">Change</a>
 {% endblock %}

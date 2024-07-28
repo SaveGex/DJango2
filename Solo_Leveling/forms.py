@@ -10,3 +10,4 @@ class Create(forms.ModelForm):
         'comment_video': 'Comment on video ' + str(GVideo.objects.count() + 1),
         'name': "Name" + str(GVideo.objects.count() + 1),
         }
+
