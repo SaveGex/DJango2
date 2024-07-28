@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import messages
@@ -26,7 +26,8 @@ def create_post(request):
     if request.method == "POST":
 
         form = Create(request.POST)
-        
+
+            
         if form.is_valid():
             form.save()
             messages.success(request, "Post created successfully")
@@ -51,4 +52,17 @@ def about(request, name_id):
 def delete(request, name_id):
     video = GVideo.objects.get(pk=name_id)
     video.delete()
-    return HttpResponseRedirect(reverse("SL:common"))
+    return redirect("SL:common")
+    # return HttpResponseRedirect(reverse("SL:common"))
+
+
+def change(request, name_id):
+    video = GVideo.objects.get(pk=name_id)
+    if request.method == "POST":
+        form = Create(request.POST, instance=video)
+        if form.is_valid():
+            form.save(commit=False)
+            form.url_video = request.POST.get("url_video")
+            form.save()
+            return redirect("SL:about", name_id)
+    return render(request, "SL/create.html", {"video": video})
