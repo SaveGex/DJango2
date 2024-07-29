@@ -1,41 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
-<form action="{% url 'SL:create_post' %}" method="post">
-    {% csrf_token %}
     {% if error_msg %}
         <div class="alert alert-info" role="alert">
             {{ error_msg }}
         </div>
     {% endif %}
-    {% if not video %}
+    <form action="{% url 'SL:create_post' %}" method="post">
+        {% csrf_token %}
+
         <div class="mb-3">
             <label for="name" class="form-label">Name of video</label>
             <input id="name" type="text" name="name" class="form-control" placeholder="Username">
         </div>
+
         <div class="mb-3">
             <label for="comment_video" class="form-label">Comment to video</label>
             <textarea id="comment_video" name="comment_video" class="form-control" rows="3"></textarea>
         </div>
+
         <div class="mb-3">
             <label for="url_video" class="form-label">URL to video</label>
             <input id="url_video" type="text" name="url_video" class="form-control" placeholder="URL">
         </div>
 
-        <input  type="submit" class="btn btn-primary" href="{% url 'SL:create_post' %}"></input> 
-    {% else %}
-        <div class="mb-3">
-            <label for="name" class="form-label">Name of video</label>
-            <input id="name" type="text" name="name" class="form-control" value="{{video.name}}">
-        </div>
-        <div class="mb-3">
-            <label for="comment_video" class="form-label">Comment to video</label>
-            <textarea id="comment_video" name="comment_video" class="form-control" rows="3">{{video.comment_video}}</textarea>
-        </div>
-        <div class="mb-3">
-            <label for="url_video" class="form-label">URL to video</label>
-            <input id="url_video" type="text" name="url_video" class="form-control" value="{{video.url_video}}">
-        </div>
-        <input  type="submit" class="btn btn-primary" href="{% url 'SL:change' video.id  %}"></input> 
-    {% endif %}
-</form>
+        <input  type="submit" class="btn btn-primary" href="{% url 'SL:create_post' %}">Create</input> 
+    </form>
+
 {% endblock %}

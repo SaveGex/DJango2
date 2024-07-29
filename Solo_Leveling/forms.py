@@ -5,4 +5,4 @@ class Create(forms.ModelForm):
 
     class Meta:
         model = GVideo
-        fields = ['name', 'url_video', 'comment_video']
+        exclude = ['publish_date']
