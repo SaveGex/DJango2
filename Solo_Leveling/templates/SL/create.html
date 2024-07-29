@@ -1,25 +1,39 @@
 {% extends 'base.html' %}
 {% block content %}
-<form action="{% url 'SL:create_post' %}" method="post">
-    {% csrf_token %}
-    {% if error_msg %}
-        <div class="alert alert-info" role="alert">
-            {{ error_msg }}
+<div class="container-sm container-md container-lg d-flex justify-content-center">
+    <form action="{% url 'SL:create_post' %}" method="post" class="mt-5 col-sm-12 col-md-9 col-lg-5">
+        {% csrf_token %}
+        {% if error_msg %}
+            <div class="alert alert-info" role="alert">
+                {{ error_msg }}
+            </div>
+        {% endif %} 
+        <div class="mb-3">
+            <label for="name" class="form-label">Name of video</label>
+            <input id="name" type="text" name="name" class="form-control highlight-on-focus" placeholder="Username" value="Name{{count}}">
         </div>
-    {% endif %} 
-    <div class="mb-3">
-        <label for="name" class="form-label">Name of video</label>
-        <input id="name" type="text" name="name" class="form-control" placeholder="Username">
-    </div>
-    <div class="mb-3">
-        <label for="comment_video" class="form-label">Comment to video</label>
-        <textarea id="comment_video" name="comment_video" class="form-control" rows="3"></textarea>
-    </div>
-    <div class="mb-3">
-        <label for="url_video" class="form-label">URL to video</label>
-        <input id="url_video" type="text" name="url_video" class="form-control" placeholder="URL">
-    </div>
+        <div class="mb-3">
+            <label for="comment_video" class="form-label">Comment to video</label>
+            <textarea  name="comment_video" class="form-control highlight-on-focus" rows="3" placeholder="Comment">Comment{{count}}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="url_video" class="form-label">URL to video</label>
+            <input type="text" name="url_video" class="form-control highlight-on-focus" placeholder="URL">
+        </div>
 
-    <input  type="submit" class="btn btn-primary" href="{% url 'SL:create_post' %}"></input> 
-</form>
+        <input  type="submit" class="btn btn-primary" href="{% url 'SL:create_post' %}"></input> 
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const highlightElements = document.querySelectorAll('.highlight-on-focus');
+
+        highlightElements.forEach(element => {
+            element.addEventListener('focus', function() {
+                this.select();
+            });
+        });
+    });
+</script>
 {% endblock %}

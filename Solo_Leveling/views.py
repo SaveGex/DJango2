@@ -20,23 +20,29 @@ def index(request):
 
 
 def create(request):
-    return render(request, "SL/create.html")
+    return render(request, "SL/create.html", {"count": GVideo.objects.count(),})
 
 def create_post(request):
+    context = {
+        "count": GVideo.objects.count(),
+        "error_msg": "Error",
+    }
     if request.method == "POST":
 
         form = Create(request.POST)
-        
+        count = GVideo.objects.count()
+
+
         if form.is_valid():
             form.save()
             messages.success(request, "Post created successfully")
             return HttpResponseRedirect(reverse("SL:common"))
         else:
-            return render(request, "SL/create.html", {"error_msg": "Error"})
+            return render(request, "SL/create.html", context)
 
     else:
         form = Create()
-        return render(request, "SL/create.html", {"error_msg": "Error"})
+        return render(request, "SL/create.html", context)
     
 
 

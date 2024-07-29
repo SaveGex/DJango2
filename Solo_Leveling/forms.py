@@ -5,4 +5,8 @@ class Create(forms.ModelForm):
 
     class Meta:
         model = GVideo
-        fields = ['name', 'comment_video', 'url_video']
+        exclude = ['publish_date']
+        defaults = {
+        'comment_video': 'Comment on video ' + str(GVideo.objects.count() + 1),
+        'name': "Name" + str(GVideo.objects.count() + 1),
+        }
