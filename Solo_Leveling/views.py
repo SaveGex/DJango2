@@ -60,11 +60,28 @@ def delete(request, name_id):
 
 def change(request, name_id):
     video = GVideo.objects.get(pk=name_id)
+    name = ''
+    comment_video = ''
+    url_video = ''
+    
     if request.method == "POST":
         form = Create(request.POST, instance=video)
         if form.is_valid():
-            form.save(commit=False)
-            form.url_video = request.POST.get("url_video")
             form.save()
             return redirect("SL:about", name_id)
-    return render(request, "SL/create.html", {"video": video})
+        else:
+
+            if request.POST.get("name") == "":
+                name = "Name cannot be empty"
+            if request.POST.get("comment_video") == "":
+                comment_video = "Comment cannot be empty"
+            if request.POST.get("url_video") == "":
+                url_video = "URL cannot be empty"
+            return render(request, "SL/change.html", {
+                "video": video, 
+                "name": name, 
+                "comment_video": comment_video, 
+                "url_video": url_video
+            })
+
+    return render(request, "SL/change.html", {"video": video})

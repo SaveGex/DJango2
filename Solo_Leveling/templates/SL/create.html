@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+
 <div class="container-sm container-md container-lg d-flex justify-content-center">
     <form action="{% url 'SL:create_post' %}" method="post" class="mt-5 col-sm-12 col-md-9 col-lg-5">
         {% csrf_token %}
@@ -8,19 +9,23 @@
                 {{ error_msg }}
             </div>
         {% endif %} 
+
         <div class="mb-3">
             <label for="name" class="form-label">Name of video</label>
             <input id="name" type="text" name="name" class="form-control highlight-on-focus" placeholder="Username" value="Name{{count}}">
         </div>
+
         <div class="mb-3">
             <label for="comment_video" class="form-label">Comment to video</label>
             <textarea  name="comment_video" class="form-control highlight-on-focus" rows="3" placeholder="Comment">Comment{{count}}</textarea>
         </div>
+
         <div class="mb-3">
             <label for="url_video" class="form-label">URL to video</label>
             <input type="text" name="url_video" class="form-control highlight-on-focus" placeholder="URL">
         </div>
-
+        <input  type="submit" class="btn btn-primary" href="{% url 'SL:create_post' %}">Create</input> 
+    </form>
         <input  type="submit" class="btn btn-primary" href="{% url 'SL:create_post' %}"></input> 
     </form>
 </div>
@@ -37,3 +42,5 @@
     });
 </script>
 {% endblock %}
+        
+
