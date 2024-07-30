@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 from .models import GVideo
 
 class Create(forms.ModelForm):
@@ -6,8 +7,9 @@ class Create(forms.ModelForm):
     class Meta:
         model = GVideo
         exclude = ['publish_date']
-        defaults = {
-        'comment_video': 'Comment on video ' + str(GVideo.objects.count() + 1),
-        'name': "Name" + str(GVideo.objects.count() + 1),
+        error_messages = {
+            "name": {
+                "max_length": _("This writer's name is too long."),
+            },
         }
 

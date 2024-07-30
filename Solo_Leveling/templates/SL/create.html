@@ -10,23 +10,45 @@
             </div>
         {% endif %} 
 
+
+        {% if name %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Error:</strong> {{ name }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
         <div class="mb-3">
             <label for="name" class="form-label">Name of video</label>
-            <input id="name" type="text" name="name" class="form-control highlight-on-focus" placeholder="Username" value="Name{{count}}">
+            <input id="name" type="text" name="name" class="form-control" placeholder="Username" value="{{ video.name }}">
         </div>
 
+
+        {% if comment_video %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Error:</strong> {{ comment_video }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
         <div class="mb-3">
             <label for="comment_video" class="form-label">Comment to video</label>
-            <textarea  name="comment_video" class="form-control highlight-on-focus" rows="3" placeholder="Comment">Comment{{count}}</textarea>
+
+            <textarea id="comment_video" name="comment_video" class="form-control" rows="3">{{ video.comment_video }}</textarea>
         </div>
 
+
+        {% if url_video %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Error:</strong> {{ url_video }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
         <div class="mb-3">
             <label for="url_video" class="form-label">URL to video</label>
-            <input type="text" name="url_video" class="form-control highlight-on-focus" placeholder="URL">
+
+            <input id="url_video" type="text" name="url_video" class="form-control" placeholder="URL" value="{{ video.url_video }}">
         </div>
-        <input  type="submit" class="btn btn-primary" href="{% url 'SL:create_post' %}">Create</input> 
-    </form>
-        <input  type="submit" class="btn btn-primary" href="{% url 'SL:create_post' %}"></input> 
+
+        <input type="submit" class="btn btn-primary" href="{% url 'SL:create_post' %}"></input> 
     </form>
 </div>
 
