@@ -6,10 +6,22 @@ class Create(forms.ModelForm):
 
     class Meta:
         model = GVideo
-        exclude = ['publish_date']
+        fields = ["name", "comment_video", "url_video"]
+        labels = {
+            "name": _("Name of the video"),
+            "comment_video": _("Comment to the video"),
+            "url_video": _("URL to the video"),
+        }
+        help_texts = {
+            "name": _("Enter the name of the video."),
+            "comment_video": _("Provide your comment to the video."),
+        }
         error_messages = {
             "name": {
-                "max_length": _("This writer's name is too long."),
+                "max_length": _("The name is too long."),
+                "required": _("This field is required."),
             },
+            "url_video": {
+                "required": _("This field is required."),
+            }
         }
-

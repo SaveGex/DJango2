@@ -25,48 +25,15 @@ def create(request):
     return render(request, "SL/create.html", {"count": GVideo.objects.count(),})
 
 def create_post(request):
-    context = {
-        "count": GVideo.objects.count(),
-        "error_msg": "Error",
-        "count": GVideo.objects.count(),
-    }
-    if request.method == "POST":
-        name = ''
-        comment_video = ''
-        url_video = ''
-        form_error = ''
+    if request.method == 'POST':
+        form = Create(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('SL:common')  # Redirect to a success page or another view
+    else:
+        form = Create()
 
-        if request.method == "POST":
-            form = Create(request.POST)
-            if form.is_valid():
-                form.save()
-                messages.success(request, "Post created successfully")
-                return HttpResponseRedirect(reverse("SL:common"))
-            else:
-                video_data = {
-                    "name": request.POST["name"],
-                    "comment_video": request.POST["comment_video"],
-                    "url_video": request.POST["url_video"]
-                }
-                if request.POST["name"] == "":
-                    name = "Name cannot be empty"
-                if request.POST["comment_video"] == "":
-                    comment_video = "Comment cannot be empty"
-                if request.POST["url_video"] == "":
-                    url_video = "URL cannot be empty"
-                if not validate_url(request.POST["url_video"]) and request.POST["url_video"] != "":
-                    form_error = "URL is not valid"
-                print(form_error)
-                return render(request, "SL/create.html", {
-                    "video": video_data, 
-                    "name": name, 
-                    "comment_video": comment_video, 
-                    "url_video": url_video,
-                    "form_error": form_error
-                })
-
-        return render(request, "SL/create.html")
-    
+    return render(request, 'SL/create.html', {'form': form})
 
 
 def about(request, name_id):

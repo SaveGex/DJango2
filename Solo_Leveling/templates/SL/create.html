@@ -2,7 +2,54 @@
 {% block content %}
 
 <div class="container-sm container-md container-lg d-flex justify-content-center">
-    <form action="{% url 'SL:create_post' %}" method="post" class="mt-5 col-sm-12 col-md-9 col-lg-5">
+    <form action="{% url 'SL:create_post' %}" method="post" class="col-12 col-md-9 col-lg-5">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="mb-3">
+            <label for="{{ form.name.id_for_label }}" class="form-label">{{ form.name.label }}</label>
+            {{ form.name }}
+            {% if form.name.errors %}
+                <div class="alert alert-danger">
+                    {% for error in form.name.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if form.name.help_text %}
+                <div class="form-text">{{ form.name.help_text }}</div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.comment_video.id_for_label }}" class="form-label">{{ form.comment_video.label }}</label>
+            {{ form.comment_video }}
+            {% if form.comment_video.errors %}
+                <div class="alert alert-danger">
+                    {% for error in form.comment_video.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if form.comment_video.help_text %}
+                <div class="form-text">{{ form.comment_video.help_text }}</div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.url_video.id_for_label }}" class="form-label">{{ form.url_video.label }}</label>
+            {{ form.url_video }}
+            {% if form.url_video.errors %}
+                <div class="alert alert-danger">
+                    {% for error in form.url_video.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if form.url_video.help_text %}
+                <div class="form-text">{{ form.url_video.help_text }}</div>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <!-- <form action="{% url 'SL:create_post' %}" method="post" class="mt-5 col-sm-12 col-md-9 col-lg-5">
         {% csrf_token %}
         {% if error_msg %}
             <div class="alert alert-info" role="alert">
@@ -49,7 +96,7 @@
         </div>
 
         <input type="submit" class="btn btn-primary" href="{% url 'SL:create_post' %}"></input> 
-    </form>
+    </form> -->
 </div>
 
 <script>
