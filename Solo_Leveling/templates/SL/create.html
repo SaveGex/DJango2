@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
-    {% if form_error %}
-        <div class="alert alert-info" role="alert">
-            {{ form_error }}
-        </div>
-    {% endif %}
-    <form action="{% url 'SL:create_post' %}" method="post">
+
+<div class="container-sm container-md container-lg d-flex justify-content-center">
+    <form action="{% url 'SL:create_post' %}" method="post" class="mt-5 col-sm-12 col-md-9 col-lg-5">
         {% csrf_token %}
+        {% if error_msg %}
+            <div class="alert alert-info" role="alert">
+                {{ error_msg }}
+            </div>
+        {% endif %} 
 
 
         {% if name %}
@@ -29,9 +31,10 @@
         {% endif %}
         <div class="mb-3">
             <label for="comment_video" class="form-label">Comment to video</label>
+
             <textarea id="comment_video" name="comment_video" class="form-control" rows="3">{{ video.comment_video }}</textarea>
         </div>
-
+      
 
         {% if url_video %}
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -47,4 +50,17 @@
         <input type="submit" class="btn btn-primary" href="{% url 'SL:create_post' %}"></input> 
     </form>
 
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const highlightElements = document.querySelectorAll('.highlight-on-focus');
+
+        highlightElements.forEach(element => {
+            element.addEventListener('focus', function() {
+                this.select();
+            });
+        });
+    });
+</script>
 {% endblock %}

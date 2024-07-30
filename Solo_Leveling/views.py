@@ -22,11 +22,15 @@ def index(request):
 
 
 def create(request):
-    return render(request, "SL/create.html")
+    return render(request, "SL/create.html", {"count": GVideo.objects.count(),})
 
 def create_post(request):
+    context = {
+        "count": GVideo.objects.count(),
+        "error_msg": "Error",
+        "count": GVideo.objects.count(),
+    }
     if request.method == "POST":
-        
         name = ''
         comment_video = ''
         url_video = ''
