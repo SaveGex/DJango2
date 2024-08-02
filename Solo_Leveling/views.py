@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
 from django.urls import reverse
 from django.contrib import messages
 from Solo_Leveling.func import validate_url
