@@ -3,16 +3,32 @@ from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
 from django.urls import reverse
 from django.contrib import messages
 from Solo_Leveling.func import validate_url
+from django.core.paginator import Paginator
 
 
 from .models import GVideo
 from .forms import Create
 
 # Create your views here.
-def common(request):
+
+
+def common(request, page_number):
     list_video = GVideo.objects.all()
+    paginator = Paginator(list_video, per_page=2, orphans=2)  # Show 25 contacts per page.
+    page_obj = paginator.get_page(page_number)
+    page_addition_two = page_obj.number + 2
+    if((page_addition_two<=paginator.num_pages) == False):
+        page_addition_two = 0
+    
+    page_negative_two = page_obj.number - 2
+    if(page_negative_two<=0):
+        page_negative_two = 0
     context = {
-        "urls": list_video
+        "urls": list_video,
+        "page_obj": page_obj,
+        "page_number": page_number,
+        "page_addition_two": page_addition_two,
+        "page_negative_two": page_negative_two,
     }
     return render(request, "SL/common.html", context)
 

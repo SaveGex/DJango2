@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block head_addition %}
+
+{% endblock %}
+
 
 {% block navbar_addition %}
 <li class="nav-item">
@@ -16,10 +20,10 @@
             {% endfor %}
         </div>
 {% endif %}
-<div class="container text-center">
 
-    <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3 ">
-        {% for i in urls %}
+<div class="container text-center">
+    <div class="row row-cols-2 row-cols-lg-3 g-2 g-lg-3 ">
+        {% for i in page_obj %}
         <a class="text-decoration-none" href="{% url 'SL:about' i.id %}">
         <div class="card ms-1">
             <iframe src="{{ i.url_video }}" class="card-img-top"></iframe>
@@ -31,7 +35,33 @@
         </a>
         {% endfor %}
     </div>
-        <a href="{% url 'SL:index' %}">index</a>
+
+    <div class="d-flex justify-content-center mt-5">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                
+              {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="{% url 'SL:common' page_obj.previous_page_number %}">Previous</a></li>
+                {% if page_negative_two %}
+                    <li class="page-item"><a class="page-link" href="{% url 'SL:common' page_negative_two %}">{{ page_negative_two }}</a></li>
+                {% endif %}
+                <li class="page-item"><a class="page-link" href="{% url 'SL:common' page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a></li>
+              {% endif %}
+              
+              <li class="page-item active"><a class="page-link" href="#">{{ page_number }}</a></li>
+
+              {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="{% url 'SL:common' page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a></li>
+                {% if page_addition_two %}
+                    <li class="page-item"><a class="page-link" href="{% url 'SL:common' page_addition_two %}">{{ page_addition_two }}</a></li>
+                {% endif %}
+                <li class="page-item"><a class="page-link" href="{% url 'SL:common' page_obj.next_page_number %}">Next</a></li>
+              {% endif %}
+
+            </ul>
+          </nav>
     </div>
-</div>  
+    <h1>{{ page_obj.paginator.num_pages }}</h1>
+        
+</div>
 {% endblock %}
