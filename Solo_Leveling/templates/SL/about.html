@@ -2,15 +2,19 @@
 
 
 {% block navbar_addition %}
+    <center class="">
+        <a class="btn btn-danger" href="{% url 'SL:delete' video.id %}">Delete</a>
+        <a class="btn btn-info" href="{% url 'SL:change' video.id %}">Change</a>
+    </center>
 {% endblock %}
 
 {% block content %}
-<div class="col-1">
-    <iframe src="{{video.url_video}}" frameborder="0"></iframe>
-    <h1>{{video.name}}</h1>
-    <p>{{video.comment_video}}</p>
-    <p>{{video.publish_date}}</p>
+<div class="container">
+    <div class="col-12">
+        <center><iframe src="{{video.url_video}}" width="560" height="315" frameborder="0"></iframe></center>
+        <h1>{{video.name}}</h1>
+        <p>{{video.comment_video}}</p>
+        <p>{{video.publish_date}}</p>
+    </div>
 </div>
-<a class="btn btn-danger" href="{% url 'SL:delete' video.id %}">Delete</a>
-<a class="btn btn-info" href="{% url 'SL:change' video.id %}">Change</a>
 {% endblock %}

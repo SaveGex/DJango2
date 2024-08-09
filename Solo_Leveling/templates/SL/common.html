@@ -7,29 +7,29 @@
 
 {% block navbar_addition %}
 <li class="nav-item">
-    <a type="button" class="btn btn-outline-danger" href="{% url 'SL:create' %}">Create</a>
+    <a type="button" class="btn btn-outline-danger" href="{% url 'SL:create_post' %}">Create</a>
 </li>    
 {% endblock %}
 
 
 {% block content %}
-{% if messages %}
-        <div class="alert alert-info" role="alert">
-            {% for message in messages %}
-                {{ message }}
-            {% endfor %}
-        </div>
-{% endif %}
+  {% if messages %}
+          <div class="alert alert-info" role="alert">
+              {% for message in messages %}
+                  {{ message }}
+              {% endfor %}
+          </div>
+  {% endif %}
 
 <div class="container text-center">
     <div class="row row-cols-2 row-cols-lg-3 g-2 g-lg-3 ">
         {% for i in page_obj %}
         <a class="text-decoration-none" href="{% url 'SL:about' i.id %}">
-        <div class="card ms-1">
-            <iframe src="{{ i.url_video }}" class="card-img-top"></iframe>
+        <div class="card ms-1 ">
+            <iframe src="{{ i.url_video }}" class="card-img-top ratio ratio-21x9"></iframe>
             <div class="card-body">
               <h5 class="card-title">{{ i.name }}</h5>
-              <p class="card-text" maxlength="50">{{ i.comment_video }}</p>
+              {% comment %}<p class="card-text overflow-hidden" maxlength="10">{{ i.comment_video }}</p>{% endcomment %}
             </div>
           </div>
         </a>

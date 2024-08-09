@@ -4,17 +4,17 @@ from django.urls import reverse
 from django.contrib import messages
 from Solo_Leveling.func import validate_url
 from django.core.paginator import Paginator
-
+from django.contrib.auth.decorators import login_required
 
 from .models import GVideo
 from .forms import Create
 
 # Create your views here.
 
-
+@login_required
 def common(request, page_number):
     list_video = GVideo.objects.all()
-    paginator = Paginator(list_video, per_page=2, orphans=2)  # Show 25 contacts per page.
+    paginator = Paginator(list_video, per_page=6, orphans=2)  # Show 25 contacts per page.
     page_obj = paginator.get_page(page_number)
     page_addition_two = page_obj.number + 2
     if((page_addition_two<=paginator.num_pages) == False):
@@ -37,15 +37,7 @@ def index(request):
     return render(request, "SL/index.html")
 
 
-def create(request):
-    return render(request, "SL/create.html", {"count": GVideo.objects.count(),})
-
 def create_post(request):
-    context = {
-        "count": GVideo.objects.count(),
-        "error_msg": "Error",
-        "count": GVideo.objects.count(),
-    }
     if request.method == "POST":
         name = ''
         comment_video = ''
@@ -57,7 +49,8 @@ def create_post(request):
             if form.is_valid():
                 form.save()
                 messages.success(request, "Post created successfully")
-                return HttpResponseRedirect(reverse("SL:common"))
+                return redirect("SL:common", page_number=1)  
+                # return HttpResponseRedirect(reverse("SL:common", args=(1)))
             else:
                 video_data = {
                     "name": request.POST["name"],
@@ -80,7 +73,7 @@ def create_post(request):
                     "url_video": url_video,
                     "form_error": form_error
                 })
-
+    else:
         return render(request, "SL/create.html")
     
 
@@ -96,7 +89,7 @@ def about(request, name_id):
 def delete(request, name_id):
     video = GVideo.objects.get(pk=name_id)
     video.delete()
-    return redirect("SL:common")
+    return redirect("SL:common", page_number=1)
     # return HttpResponseRedirect(reverse("SL:common"))
 
 
