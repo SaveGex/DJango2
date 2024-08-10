@@ -23,14 +23,13 @@ def common(request, page_number):
     page_negative_two = page_obj.number - 2
     if(page_negative_two<=0):
         page_negative_two = 0
-    context = {
+    return render(request, "SL/common.html", context= {
         "urls": list_video,
         "page_obj": page_obj,
         "page_number": page_number,
         "page_addition_two": page_addition_two,
         "page_negative_two": page_negative_two,
-    }
-    return render(request, "SL/common.html", context)
+    })
 
 
 def index(request):
