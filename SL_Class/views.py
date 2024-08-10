@@ -20,7 +20,7 @@ class Main(TemplateView):
         context = super().get_context_data(**kwargs)
         
         
-        paginator = Paginator(GVideo.objects.all(), per_page=6, orphans=2) 
+        paginator = Paginator(GVideo.objects.order_by('url_video'), per_page=6, orphans=2) 
         print(paginator.num_pages)
         page_obj = paginator.get_page(kwargs['page_number'])
 
