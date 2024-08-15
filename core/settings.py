@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'polls.apps.PollsConfig',
     'Solo_Leveling.apps.SoloLevelingConfig',
     'Auth_R_F',
+    'SL_Class',
 ]
 
 MIDDLEWARE = [
