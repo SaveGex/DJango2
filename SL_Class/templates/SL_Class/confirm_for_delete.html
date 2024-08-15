@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %} 
+    <center>
+        <form method="post">
+            {% csrf_token %}
+            <h1>{{video.name}}</h1>
+            <a href="{% url 'SL_Class:about' video.id %}"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></a>
+            <button type="submit" value="Confirm" class="btn btn-primary">Delete</button>
+        </form>
+    </center>
+{% endblock %}

@@ -6,7 +6,7 @@
 
 
 {% block navbar_addition %}
-<li class="nav-item">         {% comment %}  {% endcomment %}
+<li class="nav-item">
     <a type="button" class="btn btn-outline-danger" href="{% url 'SL_Class:create_post' %}">Create</a>
 </li>    
 {% endblock %}
@@ -23,8 +23,8 @@
 
 <div class="container text-center">
     <div class="row row-cols-2 row-cols-lg-3 g-2 g-lg-3 ">
-        {% for i in page_obj %}     {% comment %} {% url 'SL:about' i.id %} {% endcomment %}
-        <a class="text-decoration-none" href="#">
+        {% for i in page_obj %}
+        <a class="text-decoration-none" href="{% url 'SL_Class:about' i.id %}">
         <div class="card ms-1 ">
             <iframe src="{{ i.url_video }}" class="card-img-top ratio ratio-21x9"></iframe>
             <div class="card-body">
