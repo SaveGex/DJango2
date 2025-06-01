@@ -1,3 +1,4 @@
+# -- Active: 1728256680722@@127.0.0.1@5432@DJANGO2
 """
 Django settings for core project.
 
@@ -83,7 +84,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'DJANGO2',
-        'USER': 'Django user(2)',
+        'USER': 'django',
         'PASSWORD': '2558',
         "HOST": "127.0.0.1",
         "PORT": "5432",

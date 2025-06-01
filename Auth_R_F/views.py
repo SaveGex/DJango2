@@ -86,8 +86,11 @@ def LoginView(request):
         else:
             messages.error(request, _("Invalid login credentials"))
             logger.warning("Invalid login attempt: %s", username)
-        return redirect('Auth_R_F:login')
-    return render(request, "Auth_R_F/login.html")
+    context = {
+        'username': request.POST.get('username'),
+        'password': request.POST.get('password'),
+        }
+    return render(request, "Auth_R_F/login.html", context)
 
 
 
@@ -103,6 +106,7 @@ def ForgotPassword(request):
 
         try:
             user = User.objects.get(email=email)
+            name_user = user.get_username()
 
             new_password_reset = PasswordReset(user=user)
             new_password_reset.save()
@@ -112,7 +116,7 @@ def ForgotPassword(request):
 
             full_password_reset_url = f'{request.scheme}://{request.get_host()}{password_reset_url}'
 
-            email_body = f'Reset your password using the link below:\n\n\n{full_password_reset_url}'
+            email_body = f'Nickname: {name_user}\nReset your password using the link below:\n\n\n{full_password_reset_url}'
 
             email_message = EmailMessage(
                 'Reset your password', # email subject
